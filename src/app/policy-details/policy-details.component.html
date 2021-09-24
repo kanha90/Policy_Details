@@ -1,0 +1,289 @@
+<nav class="navbar navbar-light bg-light p-3">
+  <div class="container-fluid">
+    <form class="d-flex">
+      <input
+        #id
+        class="form-control me-2"
+        type="search"
+        (search)="search()"
+        placeholder="Search By Policy_id"
+        aria-label="Search"
+      />
+      <button
+        class="btn btn-outline-success"
+        (click)="SearchById(id.value)"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+    <form class="d-flex">
+      <input
+        #cid
+        class="form-control me-2"
+        (search)="search()"
+        type="search"
+        placeholder="Search By Customer_id"
+        aria-label="Search"
+      />
+      <button
+        class="btn btn-outline-success"
+        type="submit"
+        (click)="SearchByCId(cid.value)"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</nav>
+
+<div class="container-fluid p-3">
+  <table class="table table-striped" style="width: 100px; font-size: xx-small;">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" sortable="name">Policy_id</th>
+        <th scope="col" sortable="area">Date_of_Purchase</th>
+        <th scope="col" sortable="population">Customer_id</th>
+        <th scope="col" sortable="population">Fuel</th>
+        <th scope="col" sortable="population">VEHICLE_SEGMENT</th>
+        <th scope="col" sortable="population">Premium</th>
+        <th scope="col" sortable="population">bodily_injury_liability</th>
+        <th scope="col" sortable="population">personal_injury_protection</th>
+        <th scope="col" sortable="population">property_damage_liability</th>
+        <th scope="col" sortable="population">collision</th>
+        <th scope="col" sortable="population">comprehensive</th>
+        <th scope="col" sortable="population">Customer_Gender</th>
+
+        <th scope="col" sortable="population">Customer_Income_group</th>
+        <th scope="col" sortable="population">Customer_Region</th>
+        <th scope="col" sortable="population">Customer_Marital_status</th>
+        <th scope="col" sortable="population">Edit_Your_Policy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let pol of policy
+            | paginate
+              : {
+                  itemsPerPage: 10,
+                  currentPage: page,
+                  totalItems: policy.count
+                };
+          let i = index
+        "
+      >
+        <th scope="row">{{ i + (page - 1) * 10 + 1 }}</th>
+
+        <td>{{ pol.Policy_id }}</td>
+        <td>{{ pol.Date_of_Purchase }}</td>
+        <td>{{ pol.Customer_id }}</td>
+        <td>{{ pol.Fuel }}</td>
+        <td>{{ pol.VEHICLE_SEGMENT }}</td>
+        <td>{{ pol.Premium }}</td>
+        <td>{{ pol.bodily_injury_liability }}</td>
+        <td>{{ pol.personal_injury_protection }}</td>
+        <td>{{ pol.property_damage_liability }}</td>
+        <td>{{ pol.collision }}</td>
+        <td>{{ pol.comprehensive }}</td>
+        <td>{{ pol.Customer_Gender }}</td>
+        <td>{{ pol.Customer_Income_group }}</td>
+        <td>{{ pol.Customer_Region }}</td>
+        <td>{{ pol.Customer_Marital_status }}</td>
+        <td>
+          <a class=" btn btn-outline-primary" (click)="open(content, pol)"
+            >Edit</a
+          >
+        </td>
+
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <div class="form-floating mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="Policy_id"
+                  name="Policy_id"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Policy_id</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="Date_of_Purchase"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">Date_of_Purchase</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="Customer_id"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">Customer_id</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="Fuel"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">Fuel</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="VEHICLE_SEGMENT"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">VEHICLE_SEGMENT</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="Premium"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">Premium</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="bodily_injury_liability"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">bodily_injury_liability</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="personal_injury_protection"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">personal_injury_protection</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="property_damage_liability"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">property_damage_liability</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="collision"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">collision</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="comprehensive"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput">comprehensive</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="Customer_Gender"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">Customer_Gender</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="Customer_Income_group"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">Customer_Income_group</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="Customer_Region"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label for="floatingInput"> Customer_Region</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="Customer_Marital_status"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">Customer_Marital_status</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="updateById()"
+              (click)="c('Save click')"
+            >
+              Save
+            </button>
+          </div>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+
+  <pagination-controls
+    class="my-pagination"
+    (pageChange)="page = $event"
+    [id]="policy.count"
+  ></pagination-controls>
+</div>
