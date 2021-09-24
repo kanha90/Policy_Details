@@ -3,6 +3,7 @@ import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { PolicyServiceService } from '../Service/policy-service.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-policy-details',
@@ -10,6 +11,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./policy-details.component.css'],
 })
 export class PolicyDetailsComponent implements OnInit {
+  widgetsContent: any;
   constructor(
     private getPolicy: PolicyServiceService,
     config: NgbModalConfig,
@@ -148,16 +150,48 @@ export class PolicyDetailsComponent implements OnInit {
     };
 
     console.log(payload.Policy_id);
+    if(payload.Premium>=10000){
 
-    this.getPolicy.updatePolicyByPolicyId(payload).subscribe({
-      next: (res) => {
-        console.log(JSON.stringify(res.policy));
-        this.getAllPolicyDetails();
-      },
-    });
+      Swal.fire('Premium is more then 100000 ')
+      
+      this.scrollLeft()
+
+    }
+    else{
+      this.getPolicy.updatePolicyByPolicyId(payload).subscribe({
+        next: (res) => {
+          // console.log(JSON.stringify(res.policy));
+          this.getAllPolicyDetails();
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Premium is updated !',
+            html: 'I will updeated data in <b></b> milliseconds.',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+
+          })
+
+
+        },
+
+      });
+    }
+
   }
+  onActivate(event : any) {
+    window.scroll(0,0);
+
+}
 
   search() {
     this.getAllPolicyDetails();
   }
+
+  scrollLeft(){
+    this.widgetsContent.nativeElement.scrollLeft -= 150;
+  }
 }
+
+
